@@ -34,7 +34,7 @@ function Navegacion() {
               <NavDropdown title="Categories" id="basic-nav-dropdown">
                 {Categorias && Categorias.map(c => <Link to={`/categories/${c}`}><NavDropdown.Item href={`/categories/${c}`}>{c}</NavDropdown.Item></Link>)}
               </NavDropdown>
-              <Link to="/login"><Nav.Link href="#link">Cart</Nav.Link></Link>
+              <Link to="/login"><Nav.Link href="#link">login</Nav.Link></Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

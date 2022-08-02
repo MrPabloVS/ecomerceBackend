@@ -49,20 +49,21 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => { 
   const { email, password} = req.body
   let user = {}
-
   await userSchema
            .find({ email: email})
            .then((data) => { 
-             if (data !== [] ) {
-              user = data
-           }else {}
-              res.send("Incorrect email")})
+             if (data[0].email === email ) {
+              user = data[0]
+              console.log(user)
+           }else {
+             res.send("Incorrect email")}})
            .catch((err) => res.json({msg: err}))
   
   const compare = await bcrypt.compare(password, user.password)
 
   if (compare) {
-     jwt.sign( user, "claveJWT", (err, token) => {
+     jwt.sign( {user}, "claveJWT", (err, token) => {
+       console.log(token)
       res.json(token)
     })
     
