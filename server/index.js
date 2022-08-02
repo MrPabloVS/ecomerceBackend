@@ -6,7 +6,11 @@ import path from 'path'
 import {fileURLToPath} from 'url';
 import { Server}  from "socket.io"
 import { userRouter } from './routes/userRoutes.js';
+import { productRouter } from './routes/productsRoutes.js';
+import mongoose from 'mongoose'
+import dotenv from 'dotenv'
 
+dotenv.config()
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename)
 
@@ -22,16 +26,20 @@ const PORT = process.env.PORT || 8000
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, "..", "build")));
-app.use(express.static("public"));
+//app.use(express.static("public"));
 
 const httpServer = http.createServer(app)
 const io = new Server(httpServer)
 
 
-//app.use('/api', productRouter)
+app.use('/api', productRouter)
 //app.use('/api', cartRouter)
 app.use('/api', userRouter)
 
+mongoose
+  .connect(process.env.MONGOURI || "mongodb+srv://PabloVS:coderhouse@cluster0.lbjiod0.mongodb.net/?retryWrites=true&w=majority")
+  .then(() => console.log("Connected to MongoDB Atlas"))
+  .catch((err) => console.log(err))
 
 io.on("connection", socket => {
   // console.log("SocketIO Connected!");
