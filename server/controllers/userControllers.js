@@ -24,8 +24,10 @@ export const registerUser = async (req, res) => {
   await userSchema
            .find({name: name , email: email})
            .then((data) => { 
-             if (data !== {}) {
+             console.log(data)
+             if (data[0].email === email && data[0].name === name) {
              existance = true
+             console.log("existe")
            }})
            .catch((err) => res.json({msg: err}))
 
@@ -51,7 +53,7 @@ export const loginUser = async (req, res) => {
   await userSchema
            .find({ email: email})
            .then((data) => { 
-             if (data !== {} ) {
+             if (data !== [] ) {
               user = data
            }else {}
               res.send("Incorrect email")})

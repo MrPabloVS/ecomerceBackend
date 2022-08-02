@@ -1,14 +1,14 @@
 import {useState, createContext, useContext } from "react";
+import React from 'react';
 import axios from "axios";
 
+export const UserContext = React.createContext()
 
+//const UsersContext = createContext([])
 
+//export const useUsersContext = () => useContext(UsersContext)
 
-const UsersContext = createContext([])
-
-export const useUsersContext = () => useContext(UsersContext)
-
-function UsersContextProvider({children}) {
+function UserContextProvider({children}) {
 
 const [IsLogged, setIsLogged] = useState(false)
 const [User, setUser] = useState({})
@@ -57,7 +57,7 @@ const [User, setUser] = useState({})
     }
 
     return(
-        <UsersContextProvider.Provider value={{
+        <UserContextProvider.Provider value={{
             registerUser,
             loginUser,
             IsLogged,
@@ -65,10 +65,10 @@ const [User, setUser] = useState({})
 
         }}>
             {children}
-        </UsersContextProvider.Provider>
+        </UserContextProvider.Provider>
 
     )
 
 }
 
-export default UsersContextProvider
+export default UserContextProvider

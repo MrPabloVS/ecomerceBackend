@@ -20,7 +20,7 @@ const __dirname = path.dirname(__filename)
 
 const app = express()
 const server = http.createServer(app)
-const PORT = process.env.PORT || 8000
+const PORT = process.env.PORT || 3000
 
 
 app.use(express.json())
