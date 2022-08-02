@@ -54,7 +54,7 @@ export const loginUser = async (req, res) => {
            .then((data) => { 
              if (data[0].email === email ) {
               user = data[0]
-              console.log(user)
+              console.log(user) 
            }else {
              res.send("Incorrect email")}})
            .catch((err) => res.json({msg: err}))
