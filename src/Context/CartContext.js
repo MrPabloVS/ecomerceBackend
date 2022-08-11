@@ -1,5 +1,6 @@
 import {useState, createContext, useContext } from "react";
-
+import axios from "axios";
+import {ReactSession} from "react-client-session"
 
 const CartContext = createContext([])
 
@@ -8,7 +9,30 @@ export const useCartContext = () => useContext(CartContext)
 function CartContextProvider({children}) {
     //States
     const [cartList, setCartList] = useState([])
+    const [IsLogged, setIsLogged] = useState(false)
+    const [User, setUser] = useState({})
+
+    // getSession
+    const getSession = () => {
+        console.log(User)
+        axios.get("http://localhost:8000/session", {token: ReactSession.get("token")})
+            .then((res)=>{
+                console.log(res.data)
+                setUser([res.data])})
+            }
     
+
+    // Set User Token
+    const setUserToken = async (token) => {
+        axios.get("http://localhost:8000/session", {token: token})
+            .then((res)=>{
+                console.log(res.data)
+                setUser({user: res.data})})
+        console.log(token)
+         setUser()
+        console.log(User)
+    }
+
     
 
     //Funcion addItem
@@ -53,11 +77,14 @@ function CartContextProvider({children}) {
 
     return(
         <CartContext.Provider value={{
+            IsLogged,
             cartList,
             addItem,
             clearCart,
             clearSingleItem,
             precioTotal,
+            getSession,
+            setUserToken,
 
         }}>
             {children}

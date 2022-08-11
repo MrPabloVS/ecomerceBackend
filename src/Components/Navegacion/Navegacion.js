@@ -4,6 +4,7 @@ import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import {useState, useEffect} from 'react'
 import { useCartContext } from '../../Context/CartContext';
+import axios from "axios";
 
 
 
@@ -35,6 +36,7 @@ function Navegacion() {
                 {Categorias && Categorias.map(c => <Link to={`/categories/${c}`}><NavDropdown.Item href={`/categories/${c}`}>{c}</NavDropdown.Item></Link>)}
               </NavDropdown>
               <Link to="/login"><Nav.Link href="#link">login</Nav.Link></Link>
+              <Link to="/chat"><Nav.Link href="#link">Chat</Nav.Link></Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

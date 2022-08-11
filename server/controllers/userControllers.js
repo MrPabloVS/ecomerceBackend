@@ -1,6 +1,7 @@
 import userSchema from "../models/userSchema.js"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
+import session from "express-session"
 
 
 
@@ -64,6 +65,8 @@ export const loginUser = async (req, res) => {
   if (compare) {
      jwt.sign( {user}, "claveJWT", (err, token) => {
        console.log(token)
+       req.session.token = token
+       res.cookie("token", token)
       res.json(token)
     })
     
