@@ -7,6 +7,7 @@ import {fileURLToPath} from 'url';
 import { Server}  from "socket.io"
 import { userRouter } from './routes/userRoutes.js';
 import { productRouter } from './routes/productsRoutes.js';
+import { orderRouter } from './routes/orderRoutes.js';
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import { chatRouter } from './routes/chatRoutes.js'
@@ -49,9 +50,9 @@ const io = new Server(server)
 
 
 app.use('/api', productRouter)
-//app.use('/api', cartRouter)
 app.use('/api', userRouter)
 app.use('/api', chatRouter)
+app.use('api/ordenes', orderRouter)
 app.get("/session", (req, res)=>{
     console.log(req.session)
     jwt.verify(req.session.token, "claveJWT", (err, decoded) => {

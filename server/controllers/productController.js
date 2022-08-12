@@ -31,6 +31,16 @@ export const getAllProducts = async (req, res) => {
  
  
  }
+
+ export const getProductsByCategory = async (req, res) => {
+
+  const {category} = req.params 
+
+  await productSchema
+          .find({category: category})
+          .then((data) => res.json(data))
+          .catch((err) => res.json({msg: err}))
+}
  
  export const updateProduct = async (req, res) => {
    
